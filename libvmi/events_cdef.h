@@ -114,6 +114,9 @@ typedef struct {
 
 // cpuid_event_t
 typedef struct {
+    uint32_t insn_length;
+    uint32_t leaf;
+    uint32_t subleaf;
     ...;
 } cpuid_event_t;
 

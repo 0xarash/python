@@ -373,3 +373,32 @@ class DebugEvent(Event):
         d['type'] = hex(self._cffi_event.debug_event.type)
         d['reinject'] = self._reinject
         return d
+
+
+class CpuIdEvent(Event):
+    type = EventType.CPUID
+
+    def __init__(self, callback, data=None):
+        super().__init__(callback, 0, data)
+
+    @property
+    def insn_length(self):
+        return self._cffi_event.cpuid_event.insn_length
+
+    @property
+    def leaf(self):
+        return self._cffi_event.cpuid_event.leaf
+
+    @property
+    def subleaf(self):
+        return self._cffi_event.cpuid_event.subleaf
+
+    def to_cffi(self):
+        super().to_cffi()
+        return self._cffi_event
+
+    def to_dict(self):
+        d = super().to_dict()
+        d['insn_length'] = hex(self.insn_length)
+        d['leaf'] = hex(self.leaf)
+        d['subleaf'] = hex(self.subleaf)
