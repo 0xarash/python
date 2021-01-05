@@ -22,6 +22,14 @@ typedef uint8_t vmi_reg_access_t;
 #define VMI_REGACCESS_W         ...
 #define VMI_REGACCESS_RW        ...
 
+
+typedef struct {
+    uint32_t size;
+    uint8_t dont_free;
+    uint8_t _pad[3];
+    uint8_t data[256];
+} emul_read_t;
+
 // reg_event_t
 typedef struct {
     reg_t reg;
@@ -173,7 +181,7 @@ struct vmi_event {
             x86_registers_t *x86_regs;
             arm_registers_t *arm_regs;
         };
-        ...;
+        emul_read_t *emul_read;
     };
 };
 

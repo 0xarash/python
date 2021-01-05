@@ -402,3 +402,47 @@ class CpuIdEvent(Event):
         d['insn_length'] = hex(self.insn_length)
         d['leaf'] = hex(self.leaf)
         d['subleaf'] = hex(self.subleaf)
+
+
+class EmulRead:
+    def __init__(self, data, dont_free=1):
+        self._emul_read = ffi.new('emul_read_t *')
+        
+        size = len(data)
+        size = size if size <= 256 else 256
+
+        self._emul_read.size = size
+        self._emul_read.dont_free = dont_free
+
+        ffi.memmove(self._emul_read.data, data, size)
+    
+    @property
+    def size(self):
+        return self._emul_read.size
+
+    @size.setter
+    def size(self, size):
+        self._emul_read.size = size
+
+    @property
+    def dont_free(self):
+        return self._emul_read.dont_free
+
+    @dont_free.setter
+    def dont_free(self, value):
+        self._emul_read.dont_free = value
+
+    @property
+    def data(self):
+        return bytes(ffi.unpack(self._emul_read.data, self.size))
+
+    def to_cffi(self):
+        return self._emul_read
+
+    def to_dict(self):
+        return {
+            'size': self.size,
+            'dont_free': self.dont_free,
+            'data': self.data
+        }
+
