@@ -204,6 +204,19 @@ class VMIWinVer(Enum):
     OS_WINDOWS_8 = lib.VMI_OS_WINDOWS_8
     OS_WINDOWS_10 = lib.VMI_OS_WINDOWS_10
 
+class PageSize(Enum):
+    PS_UNKNOWN  = lib.VMI_PS_UNKNOWN
+    PS_1KB      = lib.VMI_PS_1KB
+    PS_4KB      = lib.VMI_PS_4KB
+    PS_16KB     = lib.VMI_PS_16KB
+    PS_64KB     = lib.VMI_PS_64KB
+    PS_1MB      = lib.VMI_PS_1MB
+    PS_2MB      = lib.VMI_PS_2MB
+    PS_4MB      = lib.VMI_PS_4MB
+    PS_16MB     = lib.VMI_PS_16MB
+    PS_32MB     = lib.VMI_PS_32MB
+    PS_512MB    = lib.VMI_PS_512MB
+    PS_1GB      = lib.VMI_PS_1GB
 
 class TranslateMechanism(Enum):
     INVALID = lib.VMI_TM_INVALID
